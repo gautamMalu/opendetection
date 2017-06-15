@@ -13,6 +13,7 @@
 #include <string>
 #include <iostream>
 #include <stdio.h>
+#include <assert.h>     /* assert */
 #include "caffe/caffe.hpp"
 #include "caffe/util/io.hpp"
 #include "caffe/blob.hpp"
