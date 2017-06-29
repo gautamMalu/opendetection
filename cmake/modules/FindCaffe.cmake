@@ -1,14 +1,16 @@
-# Caffe package
+###############################################################################
+# Find Caffe
+#
+# This sets the following variables:
+# Caffe_FOUND - True if Eigen was found.
+# Caffe_INCLUDE_DIRS - Directories containing the Eigen include files.
+# Caffe_LIBRARIES - Caffe library location.
+
 unset(Caffe_FOUND)
-
-###Set the variable Caffe_DISTRIBUTE_DIR as the root of your caffe directory
-#set(Caffe_DISTRIBUTE_DIR "/home/gautam/gsoc/caffe/distribute")
-
 
 find_path(Caffe_INCLUDE_DIRS NAMES caffe/caffe.hpp caffe/common.hpp caffe/net.hpp caffe/proto/caffe.pb.h caffe/util/io.hpp caffe/vision_layers.hpp
   HINTS
   ${Caffe_DISTRIBUTE_DIR}/include)
-
 
 
 find_library(Caffe_LIBRARIES NAMES caffe
