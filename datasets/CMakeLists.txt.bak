@@ -1,0 +1,10 @@
+project (datasets)
+
+include_directories(${OpenCV_INCLUDE_DIRS} ${Caffe_INCLUDE_DIRS} ${CUDA_TOOLKIT_INCLUDE} 
+${LMDB_INCLUDE_DIR} ${GFLAGS_INCLUDE_DIRS} ${PROTOBUF_INCLUDE_DIR})
+
+add_executable(dataset_from_folder dataset_from_folder.cpp dataset_from_folder.h)
+
+target_link_libraries(dataset_from_folder ${OpenCV_LIBRARIES} ${GLOG_LIBRARIES} ${Caffe_LIBRARIES} 
+${CUDA_cublas_LIBRARY} ${Boost_SYSTEM_LIBRARY_RELEASE} ${LMDB_LIBRARIES} ${GFLAGS_LIBRARIES}
+${PROTOBUF_LIBRARIES})
