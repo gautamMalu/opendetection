@@ -6,6 +6,7 @@ dataset modules */
 #include <string>
 #include <utility>
 #include <vector>
+#include<assert.h> // assert function
 
 #include "boost/scoped_ptr.hpp"
 #include "gflags/gflags.h"
@@ -16,3 +17,5 @@ dataset modules */
 #include "caffe/util/io.hpp"
 #include "caffe/util/format.hpp"
 #include "caffe/util/rng.hpp"
+
+#include <lmdb.h>

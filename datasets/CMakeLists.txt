@@ -19,6 +19,8 @@ if(build)
 
     set(incs
         "common.h"
+	"ODDatasetMNIST.h"
+	"ODDatasetCIFAR.h"
 	)
 
     set(srcs
