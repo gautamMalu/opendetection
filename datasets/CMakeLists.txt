@@ -22,6 +22,7 @@ if(build)
 	"ODDatasetMNIST.h"
 	"ODDatasetCIFAR.h"
 	"ODDatasetList.h"
+	"ODDatasetFolder.h"
 	)
 
     set(srcs
