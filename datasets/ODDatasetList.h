@@ -16,7 +16,7 @@ class DatasetList{
 	public:
 		DatasetList(const std::string& db_path, const std::string& db_backend = "lmdb");
 		void compute_mean_image(const string& INPUT_DB, const string& OUTPUT_FILE);
-		void convert_dataset(const string& list, bool shuffling = false, 
+		void convert_dataset(const string& list, const string& storageLocation, bool shuffling = false, 
 			bool gray = false, int resize_width = 0, int resize_height = 0, 
 			bool check_size = false, bool encoded = false, const string& encode_type= "");
 	private:

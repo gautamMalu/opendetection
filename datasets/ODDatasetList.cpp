@@ -11,7 +11,7 @@ DatasetList::DatasetList(const string& db_path, const string& db_backend){
 	std::string BACKEND  = db_backend;
 }
 
-void DatasetList::convert_dataset(const string& list, bool shuffling, 
+void DatasetList::convert_dataset(const string& list, const string& storageLocation, bool shuffling, 
 		bool gray, int resize_width, int resize_height, 
 		bool check_size, bool encoded, const string& encode_type){
 	
@@ -37,7 +37,7 @@ void DatasetList::convert_dataset(const string& list, bool shuffling,
 	// Create new DB
 	scoped_ptr<db::DB> db(db::GetDB(BACKEND));
 
-	db->Open(BACKEND.c_str(), db::NEW);
+	db->Open(storageLocation.c_str(), db::NEW);
 	scoped_ptr<db::Transaction> txn(db->NewTransaction());
 	std::string root_folder= ROOT_PATH;
 	Datum datum;
