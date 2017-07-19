@@ -35,14 +35,19 @@ namespace od
 			
 				int train();  
 				void init(){} 
-				void setSolverLocation(std::string location);
-				std::string getSolverLocation();
+				void setSolverParametersFromFile(std::string solver_location);
+				void setSolverParameters(const std::string net,
+                        			const float base_lr, const std::string lr_policy,const int max_iter,
+                        			const int snapshot, const std::string snapshot_prefix);
+				
+				void getSolverParameters();
 				void startTraining();
 				void fineTuning(std::string weight_file_location);
 				void resumeTraining(std::string solver_state_location);
 
 			private:
-				std::string solverLocation;
+				caffe::SolverParameter solver_param;
+				
 		};
 	}
 }
