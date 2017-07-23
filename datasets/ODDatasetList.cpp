@@ -8,8 +8,8 @@ using std::string;
 namespace od
 {
 	DatasetList::DatasetList(const string& db_path, const string& db_backend){
-		std::string ROOT_PATH = db_path;
-		std::string BACKEND  = db_backend;
+		ROOT_PATH = db_path;
+		BACKEND  = db_backend;
 	}
 
 	void DatasetList::convert_dataset(const string& list, const string& storageLocation, bool shuffling, 
