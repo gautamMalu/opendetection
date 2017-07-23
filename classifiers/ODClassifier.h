@@ -33,44 +33,46 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <common/pipeline/ODDetector.h>
 #include <common/pipeline/ODTrainer.h>
 #include <common/utils/utils.h>
-
-#include "opencv2/core.hpp"
-#include "opencv2/face.hpp"
-#include "opencv2/highgui.hpp"
-#include "opencv2/imgproc.hpp"
-#include "opencv2/objdetect.hpp"
-
+/*
+#include <opencv2/core.hpp>
+#include <opencv2/face.hpp>
+#include <opencv2/highgui.hpp>
+#include <opencv2/imgproc.hpp>
+#include <opencv2/objdetect.hpp>
+ */
 
 namespace od
 {
-  namespace g2d
-  {
+	namespace g2d
+	{
 
 
-   class ODClassifier : public ObjectDetector
-    {
-    public:
+		class ODClassifier : public ObjectDetector
+		{
+			public:
 
-	ODClassifier(DetectionMethod detection_method= IMAGE_GLOBAL_CLASSIFICATION);
-      void init();
+				ODClassifier(DetectionMethod detection_method= IMAGE_GLOBAL_CLASSIFICATION);
+				virtual ~ODClassifier(){ }
 
-      void initTrainer(ODTrainer *trainer);
+				void init();
 
-      void initDetector();
+				void initTrainer(ODTrainer *trainer);
 
-      int train();
+				void initDetector();
 
-      ODDetections *classify (ODSceneImage *scene);
+				int train();
 
-      DetectionMethod const &getDetectiontype() const;
-      
+				ODDetections *classify (ODSceneImage *scene);
 
-      void setDetectionMethod(DetectionMethod const &detection_method_);
-        
-      protected:
-      DetectionMethod method_;
-      bool always_train_;
-      bool trained_;
+				DetectionMethod const &getDetectiontype() const;
+
+
+				void setDetectionMethod(DetectionMethod const &detection_method_);
+
+			protected:
+				DetectionMethod method_;
+				bool always_train_;
+				bool trained_;
       std::string training_input_location_, training_data_location_;
       std::string TRAINED_DATA_EXT_, TRAINED_DATA_IDENTIFIER_;
 

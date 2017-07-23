@@ -58,7 +58,7 @@ namespace od
 
 		}	
 
-		void ODConvClassifier::SetMeanFromFile(const string& mean_file){
+		void ODConvClassifier::setMeanFromFile(const string& mean_file){
 			BlobProto blob_proto;
 			ReadProtoFromBinaryFileOrDie(mean_file.c_str(), &blob_proto);
 

@@ -56,12 +56,14 @@ namespace od
 		{
 			public:
 				ODConvClassifier();
-				void init();
+				virtual ~ODConvClassifier(){ }
+
+				void init(){}
 
 //				void initTrainer(ODConvTrainer &trainer);
 
 				void initClassifier(const std::string model_def_, const std::string model_weights_);	
-				void SetMeanFromFile(const std::string& mean_file);
+				void setMeanFromFile(const std::string& mean_file);
 
 				void setMeanFromArray(std::vector<float> &means);
 
