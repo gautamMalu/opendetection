@@ -30,8 +30,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #ifndef OPENDETECTION_ODCONVCLASSIFIER_H
 #define OPENDETECTION_ODCONVCLASSIFIER_H
 
-#include <classifier/ODClassifier.h>
-#include <detectors/global2D/training/ODConvTrainer.h>
+#include "ODClassifier.h"
 #include <common/pipeline/ODDetection.h>
 
 #include <caffe/caffe.hpp>
@@ -46,7 +45,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <string>
 #include <utility>
 #include <vector>
-#include<assert.h>
+#include <boost/assert.hpp>
 
 
 namespace od
@@ -56,24 +55,28 @@ namespace od
 		class ODConvClassifier: public ODClassifier
 		{
 			public:
-				ODConvClassifier(const std::string training_data_location="", const std::string trained_data_location="");
+				ODConvClassifier();
 				void init();
 
-				void initTrainer(ODTrainer *trainer);
+//				void initTrainer(ODConvTrainer &trainer);
 
 				void initClassifier(const std::string model_def_, const std::string model_weights_);	
-				void SetMeanFromFile(const string& mean_file);
+				void SetMeanFromFile(const std::string& mean_file);
 
-				void setMeanFromArray(float *means);
+				void setMeanFromArray(std::vector<float> &means);
 
 				cv::Mat PreProcess(cv::Mat& img);      
 
-				int train();
+//				int train();
 
-				ODClassification2D *classify (ODSceneImage *scene, int top=5);
+				std::vector<ODClassification2D*> classify (ODSceneImage *scene, int top=5);
 
 			private:
-				caffe::shared_ptr<Net<float> > net_;  
+				static std::vector<int> Argmax(const std::vector<float>& v, int N);
+				static bool PairCompare(const std::pair<float, int>& lhs,
+                        					const std::pair<float, int>& rhs);
+				caffe::shared_ptr<caffe::Net<float> > net_;  
+//				ODConvTrainer trainer_*;
 				cv::Size input_geometry_;
 				int num_channels_;
 				cv::Mat mean_;

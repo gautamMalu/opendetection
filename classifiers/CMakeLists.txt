@@ -27,6 +27,7 @@ if(build)
 
     set(srcs
         "ODClassifier.cpp"
+	"ODConvClassifier.cpp"
         )
 
 
