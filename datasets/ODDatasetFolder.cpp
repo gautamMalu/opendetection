@@ -30,7 +30,9 @@ namespace od
 		{
 			std::vector<std::string> v;
 			boost::split(v,labels[i], boost::is_any_of("/"));
-			labels_.push_back(v.back());
+			// only add to labels_ if element doesn't exist
+			if (std::find(labels_.begin(), labels_.end(),v.back())==labels_.end())
+				labels_.push_back(v.back());
 		}
 
 		for(i=0;i < n;i++)
@@ -196,7 +198,7 @@ namespace od
 	void DatasetFolder::printLabels()
 	{       
 		if(!labels_.empty())
-		{
+		{	std::cout << "Index " << "label" << std::endl;
 			for(int i=0;i<labels_.size();i++){
 				std::cout << i << " " << labels_[i] << std::endl;
 			}
