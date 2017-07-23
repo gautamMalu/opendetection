@@ -11,7 +11,7 @@ using namespace std;
 int main(int argc, char **argv)
 {
 	od::DatasetFolder *mnist_train = new od::DatasetFolder("","lmdb");
-	od::DatasetFolder *mnist_test = new od::DatasetFolder("","lmdb");
+//	od::DatasetFolder *mnist_test = new od::DatasetFolder("","lmdb");
 
 	//TODO: Add usage example doumentation here	
 	if (argc < 2){ 
@@ -28,7 +28,7 @@ int main(int argc, char **argv)
 		string mean_image_loc = root_path + "mnist_mean.binaryproto";
 
 		mnist_train->convert_dataset(train_images_loc,train_data_loc,true,true,0,0,false,false,"");
-		mnist_test->convert_dataset(test_images_loc,test_data_loc,true,true,0,0,false,false,"");
+		mnist_train->convert_dataset(test_images_loc,test_data_loc,true,true,0,0,false,false,"");
 		mnist_train->compute_mean_image(train_data_loc, mean_image_loc);
 
 		mnist_train->printLabels();
