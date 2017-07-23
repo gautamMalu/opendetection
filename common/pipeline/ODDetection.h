@@ -179,10 +179,10 @@ namespace od
 			virtual ~ODClassification2D()
 			{ }
 
-			ODClassification2D(int const& label_,DetectionType const &type_ = OD_DETECTION_CLASS, double confidence_ = 1,std::string const &id_ = "") : ODDetection(type_, id_, confidence_)
-		{
+			ODClassification2D(int const& label_, double confidence_ = 1): ODDetection(OD_DETECTION_CLASS,  "" , confidence_)
+			{
 			label_id_ = label_;
-		}
+			}
 
 			int const &getLabel() const
 			{
