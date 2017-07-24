@@ -177,11 +177,12 @@ namespace od
 			std::vector<ODClassification2D*> outputs;
 			for (int i=0;i<top;i++)
 			{
-				ODClassification2D *output = new ODClassification2D( outputs_[i],double(outputs_[topk[i]]));
+				ODClassification2D *output = new ODClassification2D( topk[i],double(outputs_[topk[i]]));
 				outputs.push_back(output);
 			} 
 			return outputs;
 		}
+
 		/* Return the indices of the top N values of vector v. */
 		std::vector<int> ODConvClassifier::Argmax(const std::vector<float>& v, int N) {
 			std::vector<std::pair<float, int> > pairs;
@@ -194,12 +195,44 @@ namespace od
 				result.push_back(pairs[i].second);
 			return result;
 		}
+
 		bool ODConvClassifier::PairCompare(const std::pair<float, int>& lhs,
 				const std::pair<float, int>& rhs) {
 			return lhs.first > rhs.first;
 		}
 
+		float ODConvClassifier::test(const string root_path, const string label_file){
+
+			std::ifstream infile(label_file.c_str());
+			//created a tuple to store sample, actual label and prdecited label
+			std::vector<std::tuple<std::string, int, int>> samples; 
+			std::string line;
+			size_t pos;
+			od::ODSceneImage *img;
+			std::vector<ODClassification2D*> labels;
+			int predicted_label, ground_truth;
+			std::string img_name,img_src;
+			while (std::getline(infile, line)) {
+				pos = line.find_last_of(' ');
+				ground_truth = atoi(line.substr(pos + 1).c_str());
+				img_name = line.substr(0, pos);
+				img_src = root_path + '/' + img_name;
+				img = new od::ODSceneImage(img_src);
+				predicted_label = classify(img,1)[0]->getLabel();
+				samples.push_back(std::make_tuple(img_name, ground_truth, predicted_label));
+			}
+
+			int num_samples = samples.size();
+			std::cout << "Number of samples passed: " << num_samples << std::endl;
+			int num_correct_samples=0;		
+			for (int i =0; i< samples.size(); i++)
+			{
+				num_correct_samples+= ( std::get<1>(samples[i]) == std::get<2>(samples[i]) );
+			}
+			std::cout << num_correct_samples << " out of " << num_samples << " are correctly predicted." << std::endl;
+			float accuracy = float(num_correct_samples)/float(num_samples);
+			return accuracy;
+		}
 
 	}
 }
-
