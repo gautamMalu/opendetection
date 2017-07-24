@@ -33,7 +33,8 @@ namespace od
 			public:
 				ODConvTrainer(std::string const &training_input_location_ = "", std::string const &trained_data_location_ = ""):ODTrainer(training_input_location_, trained_data_location_){}
 			
-				int train();  
+				int train();
+				void test(const std::string model_def,const std::string model_weights, int test_iter);  
 				void init(){} 
 				void setSolverParametersFromFile(std::string solver_location);
 				void setSolverParameters(const std::string net,
@@ -51,6 +52,4 @@ namespace od
 		};
 	}
 }
-
-
 #endif //OPENDETECTION_ODCONVTRAINER_H
