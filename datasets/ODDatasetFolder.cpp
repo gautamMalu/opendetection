@@ -8,8 +8,8 @@ namespace fs = boost::filesystem;
 namespace od
 {
 	DatasetFolder::DatasetFolder(const string& db_path, const string& db_backend){
-		string ROOT_PATH = db_path;
-		string BACKEND  = db_backend;
+		ROOT_PATH = db_path;
+		BACKEND  = db_backend;
 	}
 
 	void DatasetFolder::convert_dataset(const string& input_folder, const string& storageLocation, bool shuffling, 
@@ -18,11 +18,22 @@ namespace od
 
 		std::vector<std::pair<std::string, int> > lines;
 		std::string root_path = input_folder;
+		std::vector<std::string> labels;
 		read_directory(root_path, labels);
-		int n = labels.size();
 		vector<string> filenames;
-		int i,j;
-		string label_path_str;
+                int i,j;
+                string label_path_str;
+		int n = labels.size();
+		boost::sort(labels); // sorting incase of mnist
+		// Set labels_
+		for (i=0; i<n; i++)
+		{
+			std::vector<std::string> v;
+			boost::split(v,labels[i], boost::is_any_of("/"));
+			// only add to labels_ if element doesn't exist
+			if (std::find(labels_.begin(), labels_.end(),v.back())==labels_.end())
+				labels_.push_back(v.back());
+		}
 
 		for(i=0;i < n;i++)
 		{
@@ -70,6 +81,7 @@ namespace od
 				enc = fn.substr(p);
 				std::transform(enc.begin(), enc.end(), enc.begin(), ::tolower);
 			}
+		//	std::cout << lines[line_id].first << " "<< lines[line_id].second << std::endl;
 			status = ReadImageToDatum(lines[line_id].first,
 					lines[line_id].second, resize_height, resize_width, is_color,enc, &datum);
 			if (status == false) continue;
@@ -90,7 +102,7 @@ namespace od
 			string out;
 			/*CHECK(*/datum.SerializeToString(&out);//);
 			txn->Put(key_str, out);
-
+			
 			if (++count % 1000 == 0) {
 				// Commit db
 				txn->Commit();
@@ -98,8 +110,6 @@ namespace od
 				std::cout << "Processed " << count << " files."<<std::endl;
 			}
 		}
-
-
 	}
 
 	void DatasetFolder::compute_mean_image(const string& INPUT_DB, const string& OUTPUT_FILE){
@@ -180,13 +190,17 @@ namespace od
 		}
 	}
 
-
-	void DatasetFolder::get_labels()
-	{	//get labels information
-		if(!labels.empty())
-		{
-			for(int i=0;i<labels.size();i++){
-				std::cout << labels[i] << " " << i << std::endl;
+	vector<string> DatasetFolder::getLabels()
+	{	//get labels
+		return labels_;
+	}
+	
+	void DatasetFolder::printLabels()
+	{       
+		if(!labels_.empty())
+		{	std::cout << "Index " << "label" << std::endl;
+			for(int i=0;i<labels_.size();i++){
+				std::cout << i << " " << labels_[i] << std::endl;
 			}
 		}
 		else

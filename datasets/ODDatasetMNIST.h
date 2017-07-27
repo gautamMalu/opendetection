@@ -13,6 +13,7 @@ namespace od
 	class MNISTDataset{
 		public: 
 			MNISTDataset(const std::string& root_path, const std::string& db_backend = "lmdb");
+			virtual ~MNISTDataset(){}
 			void getTrainingData(const std::string& storageLocation);
 			void getTestingData(const std::string& storageLocation);
 

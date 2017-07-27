@@ -4,19 +4,16 @@
 set -e
 
 EXAMPLE=examples/mnist
-DATA=examples/mnist
+DATA=examples/mnist/mnist_png/
 BUILD=build/examples/mnist
 
 BACKEND="lmdb"
 
 echo "Creating ${BACKEND}..."
 
-rm -rf $EXAMPLE/mnist_train_${BACKEND}
-rm -rf $EXAMPLE/mnist_test_${BACKEND}
+rm -rf $EXAMPLE/mnist_png/train_${BACKEND}
+rm -rf $EXAMPLE/mnist_png/test_${BACKEND}
 
-$BUILD/convert_mnist_data $DATA/train-images-idx3-ubyte \
-  $DATA/train-labels-idx1-ubyte $EXAMPLE/mnist_train_${BACKEND} --backend=${BACKEND}
-$BUILD/convert_mnist_data $DATA/t10k-images-idx3-ubyte \
-  $DATA/t10k-labels-idx1-ubyte $EXAMPLE/mnist_test_${BACKEND} --backend=${BACKEND}
+$BUILD/convert_mnist_data $DATA 
 
 echo "Done."

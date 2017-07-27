@@ -1,9 +1,7 @@
 #include <detectors/global2D/training/ODConvTrainer.h>
-//#include "detectors/global2D/detection/ODConvClassification.h"
 #include<string>
 #include "common/pipeline/ObjectDetector.h"
 #include "common/pipeline/ODDetection.h"
-
 
 using namespace od;
 using namespace std;
@@ -13,24 +11,33 @@ int main(int argc, char **argv)
 	od::g2d::ODConvTrainer *mnist_trainer = new od::g2d::ODConvTrainer("","");
 	//TODO: Add usage example doumentation here	
 	if (argc < 2){ 
-		std::cout << "please provide solver file" << std::endl;
+		mnist_trainer->setSolverParameters("examples/mnist/lenet_train_test.prototxt",
+                                                0.005, "fixed",10000,
+                                                5000, "examples/mnist/lenet");
+		std::cout << "Staring Training with following parameters" << std::endl;
+		mnist_trainer->getSolverParameters();
+		mnist_trainer->startTraining();
 	}
 	else if (argc == 2){
-		mnist_trainer->setSolverLocation(argv[1]);
-		std::cout << "Training started with " << argv[1] <<std::endl;
+		mnist_trainer->setSolverParametersFromFile(argv[1]);
+		std::cout << "Training started with paramters from " << argv[1] <<std::endl;
+		std::cout << "Staring Training with following parameters" << std::endl;
+                mnist_trainer->getSolverParameters();
 		mnist_trainer->startTraining();
 	}
 	else if (argc == 3){
-		mnist_trainer->setSolverLocation(argv[1]);
-		std::cout << "Got solver file as " << argv[1] << std::endl;
-		std::string arg(argv[2]);
-		if(arg.compare(arg.size() - 11, 11, ".caffemodel") == 0){
-			std::cout << "Finetuning with "<< arg << std::endl;
-			mnist_trainer->fineTuning(arg);
+		mnist_trainer->setSolverParametersFromFile(argv[1]);
+		std::cout << "Training started with paramters from " << argv[1] <<std::endl;
+		std::cout << "Staring Training with following parameters" << std::endl;
+                mnist_trainer->getSolverParameters();
+		std::string arg2(argv[2]);
+		if(arg2.compare(arg2.size() - 11, 11, ".caffemodel") == 0){
+			std::cout << "Finetuning with "<< arg2 << std::endl;
+			mnist_trainer->fineTuning(arg2);
 		}
 		else{
-			std::cout << "Resuming trainig with " << arg << std::endl;
-			mnist_trainer->resumeTraining(arg);
+			std::cout << "Resuming training with " << arg2 << std::endl;
+			mnist_trainer->resumeTraining(arg2);
 		}
 	}
 	return 0;

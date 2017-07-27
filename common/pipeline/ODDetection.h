@@ -167,6 +167,38 @@ namespace od
     cv::Mat metainfo_image_;
   };
 
+  /** \brief Classification for 2D with location probability map
+   *
+   * \author Gautam Malu
+   *
+   */
+  class ODClassification2D : public virtual ODDetection
+	{
+		public:
+
+			virtual ~ODClassification2D()
+			{ }
+
+			ODClassification2D(int const& label_, double confidence_ = 1): ODDetection(OD_DETECTION_CLASS,  "" , confidence_)
+			{
+			label_id_ = label_;
+			}
+
+			int const &getLabel() const
+			{
+				return label_id_;    }
+
+			void setLable(int const &label_)
+			{
+				ODClassification2D::label_id_ = label_;
+			}
+
+				protected:
+			int label_id_;
+	};
+
+
+
   /** \brief Detection in 3D with 3D location information.
    *
    * \author Kripasindhu Sarkar

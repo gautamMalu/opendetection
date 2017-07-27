@@ -12,6 +12,7 @@ namespace od
 	class CIFARDataset{
 		public:
 			CIFARDataset(const std::string& root_path, const std::string& db_backend = "lmdb");
+			virtual ~CIFARDataset(){}
 			void getTrainingData(const std::string& storageLocation);
 			void getTestingData(const std::string& storageLocation);
 
