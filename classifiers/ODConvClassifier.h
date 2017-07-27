@@ -73,7 +73,7 @@ namespace od
 				//				int train();
 
 				std::vector<ODClassification2D*> classify (ODSceneImage *scene, int top=5);
-				float test(const std::string root_path, const std::string label_file);
+				float test(const std::string root_path, const std::string label_file, int top=3);
 
 
 			private:
