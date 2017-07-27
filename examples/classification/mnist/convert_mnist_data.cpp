@@ -1,9 +1,5 @@
-#include "datasets/ODDatasetFolder.h"
-//#include "detectors/global2D/detection/ODConvClassification.h"
+#include <datasets/ODDatasetFolder.h>
 #include<string>
-#include "common/pipeline/ObjectDetector.h"
-#include "common/pipeline/ODDetection.h"
-
 
 using namespace od;
 using namespace std;
@@ -11,7 +7,6 @@ using namespace std;
 int main(int argc, char **argv)
 {
 	od::DatasetFolder *mnist_train = new od::DatasetFolder("","lmdb");
-//	od::DatasetFolder *mnist_test = new od::DatasetFolder("","lmdb");
 
 	//TODO: Add usage example doumentation here	
 	if (argc < 2){ 

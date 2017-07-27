@@ -1,7 +1,5 @@
 #include <detectors/global2D/training/ODConvTrainer.h>
 #include<string>
-#include "common/pipeline/ObjectDetector.h"
-#include "common/pipeline/ODDetection.h"
 
 using namespace od;
 using namespace std;
