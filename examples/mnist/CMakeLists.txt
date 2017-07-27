@@ -15,5 +15,5 @@ target_link_libraries(convert_mnist_data od_datasets ${OpenCV_LIBRARIES} ${GLOG_
 ${CUDA_cublas_LIBRARY} ${Boost_SYSTEM_LIBRARY_RELEASE} ${LMDB_LIBRARIES} ${GFLAGS_LIBRARIES}
 ${PROTOBUF_LIBRARIES})
 
-target_link_libraries(classify_mnist od_generic_classifier od_common ${OpenCV_LIBRARIES} ${GLOG_LIBRARIES} ${Caffe_LIBRARIES} 
+target_link_libraries(classify_mnist od_global_image_detector od_common ${OpenCV_LIBRARIES} ${GLOG_LIBRARIES} ${Caffe_LIBRARIES} 
 ${CUDA_cublas_LIBRARY} ${Boost_SYSTEM_LIBRARY_RELEASE})

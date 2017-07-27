@@ -1,4 +1,4 @@
-#include <classifiers/ODConvClassifier.h>
+#include <detectors/global2D/detection/ODConvClassifier.h>
 #include <common/pipeline/ODScene.h>
 #include <common/pipeline/ODDetection.h>
 

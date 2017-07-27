@@ -21,6 +21,8 @@ if(build)
         "ODFaceRecognizer.h"
         "detection/ODHOGDetector.h"
         "detection/ODCascadeDetector.h"
+	"detection/ODClassifier.h"
+        "detection/ODConvClassifier.h"  
 	
 	"training/ODConvTrainer.h"
         "training/ODHOGTrainer.h"
@@ -33,6 +35,9 @@ if(build)
         ODFaceRecognizer.cpp
         "detection/ODHOGDetector.cpp"
         "detection/ODCascadeDetector.cpp"
+	"detection/ODClassifier.cpp"
+        "detection/ODConvClassifier.cpp"
+  
 	"training/ODConvTrainer.cpp"
         "training/ODHOGTrainer.cpp"
         )
