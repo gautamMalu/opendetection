@@ -67,8 +67,7 @@ namespace od
 					data_size_initialized = true;
 				} else {
 					const std::string& data = datum.data();
-					/*	CHECK_EQ(data.size(), data_size) << "Incorrect data field size "
-						<< data.size();*/
+					BOOST_ASSERT_MSG(data.size() == data_size, "Incorrect data field size ");
 				}
 			}
 			// sequential
@@ -106,7 +105,9 @@ namespace od
 		sum_blob.set_channels(datum.channels());
 		sum_blob.set_height(datum.height());
 		sum_blob.set_width(datum.width());
+
 		const int data_size = datum.channels() * datum.height() * datum.width();
+		
 		int size_in_datum = std::max<int>(datum.data().size(),
 				datum.float_data_size());
 		for (int i = 0; i < size_in_datum; ++i) {
@@ -121,28 +122,30 @@ namespace od
 			const std::string& data = datum.data();
 			size_in_datum = std::max<int>(datum.data().size(),
 					datum.float_data_size());
-			/*CHECK_EQ(size_in_datum, data_size) << "Incorrect data field size " <<
-			  size_in_datum;*/
+			BOOST_ASSERT_MSG(size_in_datum == data_size, "Incorrect data field size " );
+
+
 			if (data.size() != 0) {
-				/*CHECK_EQ(data.size(), size_in_datum);*/
+
+				BOOST_ASSERT(data.size() == size_in_datum);
 				for (int i = 0; i < size_in_datum; ++i) {
 					sum_blob.set_data(i, sum_blob.data(i) + (uint8_t)data[i]);
 				}
-			} else {
-				/*CHECK_EQ(datum.float_data_size(), size_in_datum);*/
+			}
+			else {
+				BOOST_ASSERT(datum.float_data_size() == size_in_datum);
 				for (int i = 0; i < size_in_datum; ++i) {
 					sum_blob.set_data(i, sum_blob.data(i) +
 							static_cast<float>(datum.float_data(i)));
 				}
 			}
 			++count;
-			if (count % 10000 == 0) {
+			if (count % 1000 == 0) {
 				std::cout << "Processed " << count << " files." <<std::endl;
 			}
 			cursor->Next();
 		}
-
-		if (count % 10000 != 0) {
+		if (count % 1000 != 0) {
 			std::cout << "Processed " << count << " files."<<std::endl;
 		}
 		for (int i = 0; i < sum_blob.data_size(); ++i) {

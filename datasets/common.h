@@ -9,6 +9,7 @@ dataset modules */
 #include<assert.h> // assert function
 
 #include "boost/scoped_ptr.hpp"
+#include <boost/assert.hpp>
 #include "gflags/gflags.h"
 #include "glog/logging.h"
 
