@@ -3,9 +3,9 @@
 # depending on the value assigned to $BACKEND.
 set -e
 
-EXAMPLE=examples/mnist
-DATA=examples/mnist/mnist_png/
-BUILD=build/examples/mnist
+EXAMPLE=examples/classification/mnist
+DATA=examples/classification/mnist/mnist_png/
+BUILD=build/examples/classification/mnist
 
 BACKEND="lmdb"
 
@@ -14,6 +14,6 @@ echo "Creating ${BACKEND}..."
 rm -rf $EXAMPLE/mnist_png/train_${BACKEND}
 rm -rf $EXAMPLE/mnist_png/test_${BACKEND}
 
-$BUILD/convert_mnist_data $DATA 
+$BUILD/convert_mnist $DATA 
 
 echo "Done."

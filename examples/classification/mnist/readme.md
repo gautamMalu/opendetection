@@ -7,18 +7,18 @@ Assuming your build location is `opendetection\build` and you are running this e
 from source directory i.e. `opendetection`  
 
 run this command to download mnist  
-`./examples/mnist/get_mnist.sh`  
+`./examples/classification/mnist/get_mnist.sh`  
 NOTE: You would need wget and gunzip to download mnist data and to unzip it.  
 
 run this command to covert mnist data into LMDB format which will be used 
 for training in caffe.  
-`./examples/mnist/create_mnist.sh`  
+`./examples/classification/mnist/create_mnist.sh`  
 
 run this command to start lenet traning of mnist:    
-`./build/examples/mnist/train_mnist examples/mnist/lenet_solver.prototxt`    
+`./build/examples/classification/mnist/train_mnist examples/mnist/lenet_solver.prototxt`    
 
 to resume training from solverstate file:      
-`./build/examples/mnist/train_mnist examples/mnist/lenet_solver.prototxt examples/mnist/lenet_iter_5000.solverstate`  
+`./build/examples/classification/mnist/train_mnist examples/mnist/lenet_solver.prototxt examples/mnist/lenet_iter_5000.solverstate`  
 
 to finetune from pretrained weights:      
-`./build/examples/mnist/train_mnist examples/mnist/lenet_solver.prototxt examples/mnist/lenet_iter_5000.caffemodel` 
+`./build/examples/classification/mnist/train_mnist examples/mnist/lenet_solver.prototxt examples/mnist/lenet_iter_5000.caffemodel` 

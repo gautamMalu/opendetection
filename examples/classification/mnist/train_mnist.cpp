@@ -9,9 +9,9 @@ int main(int argc, char **argv)
 	od::g2d::ODConvTrainer *mnist_trainer = new od::g2d::ODConvTrainer("","");
 	//TODO: Add usage example doumentation here	
 	if (argc < 2){ 
-		mnist_trainer->setSolverParameters("examples/mnist/lenet_train_test.prototxt",
+		mnist_trainer->setSolverParameters("examples/classification/mnist/lenet_train_test.prototxt",
                                                 0.005, "fixed",10000,
-                                                5000, "examples/mnist/lenet");
+                                                5000, "examples/classification/mnist/lenet");
 		std::cout << "Staring Training with following parameters" << std::endl;
 		mnist_trainer->getSolverParameters();
 		mnist_trainer->startTraining();
