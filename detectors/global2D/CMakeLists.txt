@@ -23,7 +23,8 @@ if(build)
         "detection/ODCascadeDetector.h"
 	"detection/ODClassifier.h"
         "detection/ODConvClassifier.h"  
-	
+	"detection/ODConvDetector.h"	
+
 	"training/ODConvTrainer.h"
         "training/ODHOGTrainer.h"
         )
@@ -37,7 +38,8 @@ if(build)
         "detection/ODCascadeDetector.cpp"
 	"detection/ODClassifier.cpp"
         "detection/ODConvClassifier.cpp"
-  
+  	"detection/ODConvDetector.cpp"
+
 	"training/ODConvTrainer.cpp"
         "training/ODHOGTrainer.cpp"
         )
