@@ -167,38 +167,6 @@ namespace od
     cv::Mat metainfo_image_;
   };
 
-  /** \brief Classification for 2D with location probability map
-   *
-   * \author Gautam Malu
-   *
-   */
-  class ODClassification2D : public virtual ODDetection
-	{
-		public:
-
-			virtual ~ODClassification2D()
-			{ }
-
-			ODClassification2D(int const& label_, double confidence_ = 1): ODDetection(OD_DETECTION_CLASS,  "" , confidence_)
-			{
-			label_id_ = label_;
-			}
-
-			int const &getLabel() const
-			{
-				return label_id_;    }
-
-			void setLable(int const &label_)
-			{
-				ODClassification2D::label_id_ = label_;
-			}
-
-				protected:
-			int label_id_;
-	};
-
-
-
   /** \brief Detection in 3D with 3D location information.
    *
    * \author Kripasindhu Sarkar
@@ -390,7 +358,10 @@ namespace od
       for(int i = 0; i < detections_.size(); i++)
       {
         ODDetection2D * detection = dynamic_cast<ODDetection2D *>(detections_[i]);
-        cv::rectangle(image, detection->bounding_box_2d_, getHashedColor(detections_[i]->getId(), 100), 2);
+	cv::Scalar color =  getHashedColor(detections_[i]->getId(), 100);
+        cv::rectangle(image, detection->bounding_box_2d_, color, 2);
+	cv::Point tl = detection->bounding_box_2d_.tl(); //top-left point
+	cv::putText(image,detection->getId(),tl,CV_FONT_HERSHEY_PLAIN,2,color,2);	
       }
       return ODSceneImage(image);
     }
