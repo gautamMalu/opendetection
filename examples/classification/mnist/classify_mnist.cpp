@@ -21,7 +21,9 @@ int main(int argc, char **argv)
 		mnist->initClassifier(model_def, weight_file);
 		mnist->setMeanFromFile(mean_file);
 		od::ODSceneImage *img = new od::ODSceneImage(img_src);
-		std::vector<ODClassification2D*> labels = mnist->classify(img,1);
+		//std::vector<ODClassification2D*> labels = mnist->classify(img,1);
+		ODDetections *labels = mnist->classify(img,1);
+
 		cout <<  "label for " << img_src << " is "<<  labels[0]->getLabel() << " with confidence level of  " << labels[0]->getConfidence() << endl;	
 	}
 	return 0;

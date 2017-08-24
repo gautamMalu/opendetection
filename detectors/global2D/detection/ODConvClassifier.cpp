@@ -135,7 +135,8 @@ namespace od
 
 		}    
 
-		std::vector<ODClassification2D*> ODConvClassifier::classify (ODSceneImage *scene, int top)
+		ODDetections * ODConvClassifier::classify (ODSceneImage *scene, int top)
+//		std::vector<ODClassification2D*> ODConvClassifier::classify (ODSceneImage *scene, int top)
 		{		
 			cv::Mat img_input = scene->getCVImage();
 			cv::Mat input = PreProcess(img_input);
@@ -174,11 +175,15 @@ namespace od
 			const float* end = begin + output_layer->channels();
 			std::vector<float> outputs_(begin, end);
 			std::vector<int> topk = Argmax(outputs_,top);
-			std::vector<ODClassification2D*> outputs;
+			ODDetections *outputs = new ODDetections();
+			//std::vector<ODClassification2D*> outputs;
 			for (int i=0;i<top;i++)
-			{
-				ODClassification2D *output = new ODClassification2D( topk[i],double(outputs_[topk[i]]));
-				outputs.push_back(output);
+			{//	DetectionType const &type_ = OD_DETECTION_NULLi
+				ODDetection *output = new ODDetection();
+				output->setId(std::to_string(topk[i]));
+				output->setConfidence(double(outputs_[topk[i]]));
+				//ODClassification2D *output = new ODClassification2D( topk[i],double(outputs_[topk[i]]));
+				outputs->push_back(output);
 			} 
 			return outputs;
 		}
@@ -207,22 +212,21 @@ namespace od
 			std::string line;
 			size_t pos;
 			od::ODSceneImage *img;
-			std::vector<ODClassification2D*> labels;
-			int predicted_label, ground_truth;
-			std::string img_name,img_src;
+			int predicted_label;
+			std::string img_name,img_src,ground_truth;
 
 			int num_samples = 0;
 			int num_correct_samples=0;
 			int i; //for indexing
 			while (std::getline(infile, line)) {
 				pos = line.find_last_of(' ');
-				ground_truth = atoi(line.substr(pos + 1).c_str());
+				ground_truth = line.substr(pos + 1);//.c_str();
 				img_name = line.substr(0, pos);
 				img_src = root_path + '/' + img_name;
 				img = new od::ODSceneImage(img_src);
-				labels = classify(img, top);
+				ODDetections *labels  = classify(img, top);
 				for (i=0; i<top; i++){
-					if(ground_truth == labels[i]->getLabel()){
+					if(ground_truth == labels->at(i)->getId()){
 						num_correct_samples++;
 						break;
 					}

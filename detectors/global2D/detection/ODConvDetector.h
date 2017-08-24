@@ -63,9 +63,8 @@ namespace od
 
 				void initDetector(std::string model_def, std::string model_weight);
 
-				std::vector<ODDetection2D*> detection(ODSceneImage *scene);
 				ODDetections *detect(ODSceneImage *scene){}
-				ODDetections2D* detectOmni(ODSceneImage *scene){}
+				ODDetections2D* detectOmni(ODSceneImage *scene);
 
 				int detect(ODScene *scene, std::vector<ODDetection *> &detections)
 				{ }

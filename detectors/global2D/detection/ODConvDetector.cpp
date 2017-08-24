@@ -48,28 +48,27 @@ namespace od
 			detector = new API::Detector(model_def, model_weight);
 		}
 
-		std::vector<ODDetection2D*> ODConvDetector::detection(ODSceneImage *scene){
+		 ODDetections2D* ODConvDetector::detectOmni(ODSceneImage *scene){
 			cv::Mat image = scene->getCVImage();
-			std::vector<caffe::Frcnn::BBox<float> > results;
-			detector->predict(image, results);
-			std::cout << "There are " << results.size() << " objects in picture." << std::endl;
-			int num_objects = results.size();
-			std::string label;
-			double confidence_;
-			std::vector<ODDetection2D*> detections;
-			for (size_t obj = 0; obj < results.size(); obj++) {
-				ODDetection2D *det = new ODDetection2D();
-				label = caffe::Frcnn::GetClassName(caffe::Frcnn::LoadVocClass(),results[obj].id);
-				det->setId(label);
-				confidence_ = results[obj].confidence;
-				det->setConfidence(confidence_);
-				cv::Rect box(results[obj].Point[0], results[obj].Point[1], results[obj].Point[2] - results[obj].Point[0],
-						results[obj].Point[3] - results[obj].Point[1] );
-				det->setBoundingBox(box);
-				detections.push_back(det);
+                        std::vector<caffe::Frcnn::BBox<float> > results;
+                        detector->predict(image, results);
+                        int num_objects = results.size();
+                        std::string label;
+                        double confidence_;
+			ODDetections2D *detections = new ODDetections2D();
+                        for (size_t obj = 0; obj < results.size(); obj++) {
+                                ODDetection2D *det = new ODDetection2D();
+                                label = caffe::Frcnn::GetClassName(caffe::Frcnn::LoadVocClass(),results[obj].id);
+                                det->setId(label);
+                                confidence_ = results[obj].confidence;
+                                det->setConfidence(confidence_);
+                                cv::Rect box(results[obj].Point[0], results[obj].Point[1], results[obj].Point[2] - results[obj].Point[0],
+                                                results[obj].Point[3] - results[obj].Point[1] );
+                                det->setBoundingBox(box);
+                                detections->push_back(det);
 
-			}
-			return detections;
+                        }
+                        return detections;
 		}
 
 		void ODConvDetector::printConfig(){
