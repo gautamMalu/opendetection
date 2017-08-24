@@ -50,3 +50,10 @@ OD_ADD_EXAMPLE(od_multialgo_files FILES od_multialgo_files.cpp
 OD_ADD_EXAMPLE(od_multialgo_pc FILES od_multialgo_pc.cpp
                 LINK_WITH od_miscellaneous_detector)
 
+
+OD_ADD_EXAMPLE(od_faster_rcnn FILES od_faster_rcnn.cpp
+	 LINK_WITH od_global_image_detector od_common INCLUDES ${CUDA_TOOLKIT_INCLUDE})
+
+OD_ADD_EXAMPLE(od_faster_rcnn_cam FILES od_faster_rcnn_cam.cpp
+         LINK_WITH od_global_image_detector od_common INCLUDES ${CUDA_TOOLKIT_INCLUDE})
+
