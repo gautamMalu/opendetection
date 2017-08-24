@@ -23,8 +23,7 @@ int main(int argc, char **argv)
 		od::ODSceneImage *img = new od::ODSceneImage(img_src);
 		//std::vector<ODClassification2D*> labels = mnist->classify(img,1);
 		ODDetections *labels = mnist->classify(img,1);
-
-		cout <<  "label for " << img_src << " is "<<  labels[0]->getLabel() << " with confidence level of  " << labels[0]->getConfidence() << endl;	
+		cout <<  "label for " << img_src << " is "<<  labels->at(0)->getId() << " with confidence level of  " << labels->at(0)->getConfidence() << endl;	
 	}
 	return 0;
 }
