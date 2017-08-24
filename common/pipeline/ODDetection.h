@@ -361,6 +361,7 @@ namespace od
 	cv::Scalar color =  getHashedColor(detections_[i]->getId(), 100);
         cv::rectangle(image, detection->bounding_box_2d_, color, 2);
 	cv::Point tl = detection->bounding_box_2d_.tl(); //top-left point
+	tl.y += 20;
 	cv::putText(image,detection->getId(),tl,CV_FONT_HERSHEY_PLAIN,2,color,2);	
       }
       return ODSceneImage(image);
