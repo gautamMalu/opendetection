@@ -19,6 +19,7 @@ if(build)
 
     set(incs
         "ODFaceRecognizer.h"
+        "VOC_AP.h"
         "detection/ODHOGDetector.h"
         "detection/ODCascadeDetector.h"
 	"detection/ODClassifier.h"
@@ -34,6 +35,7 @@ if(build)
 
     set(srcs
         ODFaceRecognizer.cpp
+        "VOC_AP.cpp"
         "detection/ODHOGDetector.cpp"
         "detection/ODCascadeDetector.cpp"
 	"detection/ODClassifier.cpp"
