@@ -323,6 +323,11 @@ namespace od
       this->metainfo_cluster_ = metainfo_cluster_;
     }
 
+    void remove(int i)
+    {
+	    detections_.erase(detections_.begin()+i);
+    }
+
   protected:
     std::vector<ODDetection*> detections_;
     cv::Mat metainfo_image_;
@@ -341,31 +346,31 @@ namespace od
   {
   public:
 
-    /** \brief Draws rectangles over the input image using the bounding box information present in all the 2D detections. This is a quick function to render and verify the detections made.
+      /** \brief Draws rectangles over the input image using the bounding box information present in all the 2D detections. This is a quick function to render and verify the detections made.
       */
-    ODSceneImage renderMetainfo(ODSceneImage input)
-    {
-
-      //picking up random colors for different detection algorithm, if exist
-      /*std::map<std::string, cv::Scalar> color_map;
-      for(int i = 0; i < detections_.size(); i++)
+      ODSceneImage renderMetainfo(ODSceneImage input)
       {
-        if(color_map.find(detections_[i]->getId()) == color_map.end())
-         color_map[detections_[i]->getId()] = CV_RGB(rand()%255, rand()%255, rand()%255);
-      }*/
 
-      cv::Mat image = input.getCVImage().clone();
-      for(int i = 0; i < detections_.size(); i++)
-      {
-        ODDetection2D * detection = dynamic_cast<ODDetection2D *>(detections_[i]);
-	cv::Scalar color =  getHashedColor(detections_[i]->getId(), 100);
-        cv::rectangle(image, detection->bounding_box_2d_, color, 2);
-	cv::Point tl = detection->bounding_box_2d_.tl(); //top-left point
-	tl.y += 20;
-	cv::putText(image,detection->getId(),tl,CV_FONT_HERSHEY_PLAIN,2,color,2);	
+          //picking up random colors for different detection algorithm, if exist
+          /*std::map<std::string, cv::Scalar> color_map;
+            for(int i = 0; i < detections_.size(); i++)
+            {
+            if(color_map.find(detections_[i]->getId()) == color_map.end())
+            color_map[detections_[i]->getId()] = CV_RGB(rand()%255, rand()%255, rand()%255);
+            }*/
+
+          cv::Mat image = input.getCVImage().clone();
+          for(int i = 0; i < detections_.size(); i++)
+          {
+              ODDetection2D * detection = dynamic_cast<ODDetection2D *>(detections_[i]);
+              cv::Scalar color =  od::getHashedColor(detections_[i]->getId(), 100);
+              cv::rectangle(image, detection->bounding_box_2d_, color, 2);
+              cv::Point tl = detection->bounding_box_2d_.tl(); //top-left point
+              tl.y += 20;
+              cv::putText(image,detection->getId(),tl,CV_FONT_HERSHEY_PLAIN,2,color,2);	
+          }
+          return ODSceneImage(image);
       }
-      return ODSceneImage(image);
-    }
 
 
     ODDetection2D * operator[](int i) { return dynamic_cast<ODDetection2D *>(detections_[i]); }
