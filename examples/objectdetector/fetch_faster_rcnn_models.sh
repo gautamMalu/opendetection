@@ -29,6 +29,6 @@ wget $URL -O $FILE
 
 echo "Unzipping..."
 
-tar zxvf $FILE -C ./faster-rcnn-models/ --strip-components=1
+tar zxvf $FILE -C ./examples/objectdetector/faster_rcnn_models/ --strip-components=1
 
 echo "Done. Please run this command again to verify that checksum = $CHECKSUM."
